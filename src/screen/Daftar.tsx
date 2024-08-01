@@ -1,23 +1,22 @@
 import React, { useState } from 'react';
 import {
     Modal,
-    SafeAreaView,
-    ScrollView,
-    StatusBar,
-    StyleSheet,
+    View,
     Text,
     TextInput,
     TouchableOpacity,
-    View,
+    StyleSheet,
+    Dimensions,
 } from 'react-native';
 import Akun from '../asset/Icon/akun.svg';
 import { useNavigation } from '@react-navigation/native';
 import { useAuthStore } from '../store/BansosStore';
 
+const { width, height } = Dimensions.get('window');
+
 const App = () => {
     const navigation = useNavigation();
     const handleRegister = useAuthStore(state => state.handleRegister);
-    const loading = useAuthStore(state => state.loading);
     const msg = useAuthStore(state => state.massagesDaftar);
     const [nik, setNik] = useState('');
     const [phone, setPhone] = useState('');
@@ -30,53 +29,51 @@ const App = () => {
     };
 
     const closeModal = () => {
-        navigation.navigate('Login')
+        navigation.navigate('Login');
         setModalVisible(false);
     };
 
     return (
-        <View style={{ flex: 1, backgroundColor: '#FFF' }}>
-            <View style={{ backgroundColor: '#fff', borderRadius: 8, paddingHorizontal: 10, justifyContent: 'center', width: '100%', height: '90%', marginBottom: 30 }}>
-                <View style={{ paddingVertical: 20, justifyContent: 'center', alignItems: 'center' }}>
+        <View style={styles.container}>
+            <View style={styles.formContainer}>
+                <View style={styles.header}>
                     <Akun />
-                    <Text style={{ color: '#000', fontSize: 26, fontWeight: '900', marginTop: 26 }}>DAFTAR</Text>
+                    <Text style={styles.title}>DAFTAR</Text>
                 </View>
-                <View>
+                <View style={styles.inputContainer}>
                     <TextInput
                         placeholder='NIK'
-                        style={{ borderWidth: 1, borderColor: '#000', marginBottom: 20, borderRadius: 4, paddingLeft: 20, color: '#000', fontSize: 16, fontWeight: '700' }}
+                        style={styles.input}
                         value={nik}
                         onChangeText={setNik}
                         keyboardType='numeric'
                     />
                     <TextInput
-                        placeholder='Nomer Telepon'
-                        style={{ borderWidth: 1, borderColor: '#000', marginBottom: 20, borderRadius: 4, paddingLeft: 20, color: '#000', fontSize: 16, fontWeight: '700' }}
+                        placeholder='Nomor Telepon'
+                        style={styles.input}
                         value={phone}
                         onChangeText={setPhone}
+                        keyboardType='phone-pad'
                     />
                     <TextInput
                         placeholder='Password'
-                        style={{ borderWidth: 1, borderColor: '#000', marginBottom: 20, borderRadius: 4, paddingLeft: 20, color: '#000', fontSize: 16, fontWeight: '700' }}
+                        style={styles.input}
                         secureTextEntry
                         value={password}
                         onChangeText={setPassword}
                     />
                 </View>
                 <TouchableOpacity
-                    style={{ backgroundColor: '#000', width: '100%', paddingVertical: 16, borderRadius: 8, justifyContent: 'center', alignContent: 'center' }}
+                    style={styles.registerButton}
                     onPress={onRegister}
-                // disabled={loading}
                 >
-                    <Text style={{ color: '#fff', textAlign: 'center', fontWeight: 'bold', fontSize: 14 }}>
-                        Daftar
-                    </Text>
+                    <Text style={styles.registerButtonText}>Daftar</Text>
                 </TouchableOpacity>
             </View>
-            <View style={{ flexDirection: 'row', justifyContent: 'center', marginTop: 10 }}>
-                <Text style={{ color: '#000' }}>Belum Punya Akun?</Text>
-                <TouchableOpacity onPress={() => navigation.navigate('Login')} style={{ marginLeft: 2 }}>
-                    <Text style={{ color: '#346DC2' }}>Login</Text>
+            <View style={styles.footer}>
+                <Text style={styles.footerText}>Sudah Punya Akun?</Text>
+                <TouchableOpacity onPress={() => navigation.navigate('Login')} style={styles.loginLink}>
+                    <Text style={styles.loginText}>Login</Text>
                 </TouchableOpacity>
             </View>
             <Modal
@@ -88,8 +85,6 @@ const App = () => {
                 <View style={styles.modalContainer}>
                     <View style={styles.modalContent}>
                         <Text style={styles.modalText}>{msg}</Text>
-                        {/* <Text style={styles.modalText}>Pergi Ke menu Login</Text> */}
-
                         <TouchableOpacity onPress={closeModal} style={styles.modalButton}>
                             <Text style={styles.modalButtonText}>OK</Text>
                         </TouchableOpacity>
@@ -97,10 +92,74 @@ const App = () => {
                 </View>
             </Modal>
         </View>
-    )
-}
+    );
+};
 
 const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: '#FFF',
+        paddingHorizontal: width * 0.05,
+        paddingVertical: height * 0.02,
+    },
+    formContainer: {
+        backgroundColor: '#fff',
+        borderRadius: 8,
+        padding: width * 0.05,
+        justifyContent: 'center',
+        marginTop: height * 0.1,
+    },
+    header: {
+        alignItems: 'center',
+        marginBottom: height * 0.05,
+    },
+    title: {
+        color: '#000',
+        fontSize: width * 0.065,
+        fontWeight: '900',
+        marginTop: height * 0.02,
+    },
+    inputContainer: {
+        marginBottom: height * 0.03,
+    },
+    input: {
+        borderWidth: 1,
+        borderColor: '#000',
+        borderRadius: 4,
+        paddingLeft: width * 0.04,
+        paddingVertical: height * 0.02,
+        color: '#000',
+        fontSize: width * 0.04,
+        fontWeight: '700',
+        marginBottom: height * 0.02,
+    },
+    registerButton: {
+        backgroundColor: '#000',
+        paddingVertical: height * 0.02,
+        borderRadius: 8,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    registerButtonText: {
+        color: '#fff',
+        textAlign: 'center',
+        fontWeight: 'bold',
+        fontSize: width * 0.04,
+    },
+    footer: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        marginTop: height * 0.02,
+    },
+    footerText: {
+        color: '#000',
+    },
+    loginLink: {
+        marginLeft: 5,
+    },
+    loginText: {
+        color: '#346DC2',
+    },
     modalContainer: {
         flex: 1,
         justifyContent: 'center',
@@ -116,9 +175,10 @@ const styles = StyleSheet.create({
     },
     modalText: {
         color: '#000',
-        fontSize: 16,
-        marginBottom: 20,
-        fontWeight: '900'
+        fontSize: width * 0.045,
+        marginBottom: height * 0.03,
+        fontWeight: '900',
+        textAlign: 'center',
     },
     modalButton: {
         backgroundColor: '#346DC2',
@@ -128,7 +188,7 @@ const styles = StyleSheet.create({
     modalButtonText: {
         color: '#fff',
         fontWeight: 'bold',
-        fontSize: 14,
+        fontSize: width * 0.04,
     },
 });
 
