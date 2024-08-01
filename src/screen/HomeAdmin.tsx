@@ -17,6 +17,7 @@ const App = () => {
     const [loading, setLoading] = useState(false);
     const handleLogout = useAuthStore(state => state.handleLogout);
 
+
     const hndLogout = () => {
         setLoading(true);
         setVisible(false);
@@ -221,6 +222,14 @@ const styles = StyleSheet.create({
     },
     modalButton: {
         backgroundColor: '#D9D9DE',
+        width: '30%',
+        padding: 10,
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderRadius: 8,
+    },
+    modalButton1: {
+        backgroundColor: 'red',
         width: '30%',
         padding: 10,
         alignItems: 'center',

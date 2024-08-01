@@ -65,7 +65,7 @@ const App = () => {
                             <TouchableOpacity
                                 key={pengajuan.id_pengajuan}
                                 style={{ backgroundColor: '#D9D9D9', paddingHorizontal: 20, paddingVertical: 10, borderRadius: 8, marginBottom: 10 }}
-                                onPress={() => openModal(pengajuan)}
+                            // onPress={() => openModal(pengajuan)}
                             >
                                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 0 }}>
                                     <Text style={{ color: '#000', fontSize: 14, marginTop: 6, fontWeight: '700' }}>{pengajuan.penduduk.nama}</Text>

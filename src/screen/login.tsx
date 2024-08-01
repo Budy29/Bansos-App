@@ -36,12 +36,9 @@ const App = () => {
         if (token) {
             setLoading(true);
             setTimeout(() => {
-
                 if (username === 'Admin') {
-                    console.log('Navigating to HomeAdm');
                     navigation.navigate('HomeAdm');
                 } else if (username === 'admin') {
-                    console.log('Navigating to HomeUsr');
                     navigation.navigate('HomeAdm');
                 } else {
                     navigation.navigate('HomeUsr')
@@ -102,7 +99,7 @@ const App = () => {
                         onChangeText={setPassword}
                         secureTextEntry={!showPassword}
                     />
-                    <TouchableOpacity onPress={togglePasswordVisibility} style={{ position: 'relative', top: '-33%', left: '0%', justifyContent: 'flex-end', alignItems: 'flex-end', paddingRight: 20 }}>
+                    <TouchableOpacity onPress={togglePasswordVisibility} style={{ position: 'relative', top: '-33%', left: '80%', justifyContent: 'flex-end', alignItems: 'flex-end', paddingRight: 20, width: '20%' }}>
                         {showPassword ? (
                             <Eye />
                         ) : (

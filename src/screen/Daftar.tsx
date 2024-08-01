@@ -30,6 +30,7 @@ const App = () => {
     };
 
     const closeModal = () => {
+        navigation.navigate('Login')
         setModalVisible(false);
     };
 
